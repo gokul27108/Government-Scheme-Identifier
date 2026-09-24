@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | AI Government Scheme Identifier</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/form">Find Schemes</a></li>
+      <li><a href="/results">Results Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container" style="max-width: 650px; padding-top: 2rem;">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>📝 Register New User Account</h2>
+        <p>Create an account to automatically save your profile and track all matching government schemes.</p>
+      </div>
+
+      <form id="registerForm">
+        <div class="form-grid">
+          
+          <div class="form-group full-width">
+            <label for="fullName">Full Name <span style="color: red;">*</span></label>
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span style="color: red;">*</span></label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="e.g. rahul@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password (min 6 chars) <span style="color: red;">*</span></label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Create password" minlength="6" required>
+          </div>
+
+          <div class="form-section-title">👤 Basic Demographic Details</div>
+
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" class="form-control" placeholder="e.g. 25" min="1" max="110">
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" class="form-control">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Transgender">Transgender</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="state">State</label>
+            <select id="state" name="state" class="form-control">
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Other">Other State</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <select id="occupation" name="occupation" class="form-control">
+              <option value="Student">Student</option>
+              <option value="Farmer / Agriculture">Farmer / Agriculture</option>
+              <option value="Self-Employed / Business">Self-Employed / Business</option>
+              <option value="Unemployed">Unemployed</option>
+              <option value="Private Sector Employee">Private Sector Employee</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div id="errorMsg" style="color: #dc2626; font-size: 0.9rem; margin-top: 1rem; display: none;"></div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1.5rem;">
+          Register Account & Continue
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already registered? <a href="/login" style="color: var(--primary-color); font-weight: 600;">Log In Here</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.style.display = 'none';
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+      const state = document.getElementById('state').value;
+      const occupation = document.getElementById('occupation').value;
+
+      const profile = { age, gender, state, occupation };
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, password, profile })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          Auth.setSession(data.token, data.user);
+          window.location.href = '/form';
+        } else {
+          errorMsg.textContent = data.error || 'Registration failed.';
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Connection error. Please try again.';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

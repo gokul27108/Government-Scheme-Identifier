@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results Dashboard | AI Government Scheme Identifier</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/form">Find Schemes</a></li>
+      <li><a href="/results" class="active">Results Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container">
+
+    <!-- Overview Stats Header -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon total">🔍</div>
+        <div class="stat-info">
+          <h4 id="statTotal">0</h4>
+          <p>Total Schemes Found</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon eligible">✅</div>
+        <div class="stat-info">
+          <h4 id="statEligible">0</h4>
+          <p>Eligible Schemes</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon potential">⚡</div>
+        <div class="stat-info">
+          <h4 id="statPotential">0</h4>
+          <p>Potentially Eligible</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon moreinfo">ℹ️</div>
+        <div class="stat-info">
+          <h4 id="statMoreInfo">0</h4>
+          <p>More Info Required</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Disclaimer Banner -->
+    <div class="disclaimer-banner">
+      <span style="font-size: 1.25rem;">⚠️</span>
+      <div>
+        <strong>Government Disclaimer:</strong> The Gemini AI Scheme Identifier provides recommendations for informational and assistance purposes. Final eligibility, documentation verification, and grant approval are determined solely by the respective Indian Central or State Government Authorities.
+      </div>
+    </div>
+
+    <!-- Toolbar: Search & Filters -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search schemes by name, ministry, or keyword...">
+      </div>
+
+      <div class="filter-group">
+        <select id="statusFilter" class="filter-select">
+          <option value="ALL">All Statuses</option>
+          <option value="Eligible">✅ Eligible Only</option>
+          <option value="Potentially Eligible">⚡ Potentially Eligible</option>
+          <option value="More Information Required">ℹ️ More Info Required</option>
+        </select>
+
+        <select id="categoryFilter" class="filter-select">
+          <option value="ALL">All Categories</option>
+          <option value="Agriculture">Agriculture & Farmers</option>
+          <option value="Education">Education & Scholarships</option>
+          <option value="Healthcare">Healthcare & Insurance</option>
+          <option value="Entrepreneurship">Entrepreneurship & MSME</option>
+          <option value="Housing">Housing</option>
+          <option value="Pension">Pension</option>
+          <option value="Women">Women & Child Development</option>
+          <option value="Skill Development">Skill Development</option>
+          <option value="Rural Development">Rural Development</option>
+          <option value="Social Welfare">Social Welfare</option>
+        </select>
+
+        <select id="levelFilter" class="filter-select">
+          <option value="ALL">All Levels (Central & State)</option>
+          <option value="Central">Central Govt Schemes</option>
+          <option value="State">State Govt Schemes</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Schemes Cards Grid -->
+    <div id="schemesGrid" class="schemes-grid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Empty State / No Results -->
+    <div id="noResults" class="form-card" style="display: none; text-align: center; padding: 3rem;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🔎</div>
+      <h3>No matching schemes found</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        Try clearing or adjusting your search filters, or submit a new profile analysis.
+      </p>
+      <a href="/form" class="btn-primary">Fill Out Profile Form</a>
+    </div>
+
+  </div>
+
+  <!-- Detailed Scheme Inspection Modal -->
+  <div id="schemeModal" class="modal-overlay">
+    <div class="modal-container">
+      <button id="modalCloseBtn" class="modal-close">✕</button>
+
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
+        <span id="modalStatusBadge" class="status-badge eligible">Eligible</span>
+        <span id="modalCategoryTag" class="category-tag">Category</span>
+        <span id="modalLevelTag" class="category-tag" style="background: #e2e8f0;">Central</span>
+      </div>
+
+      <h2 id="modalSchemeTitle" style="font-size: 1.6rem; color: #0f172a; margin-bottom: 0.25rem;">Scheme Title</h2>
+      <p id="modalMinistry" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">Ministry Name</p>
+
+      <div class="modal-section" style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+        <h4>🎯 Why Relevant to You</h4>
+        <p id="modalRelevanceReason" style="font-size: 0.95rem; color: #334155;"></p>
+      </div>
+
+      <div class="modal-section">
+        <h4>💰 Key Benefits</h4>
+        <p id="modalBenefits" style="font-size: 0.95rem; color: #1e293b; font-weight: 500;"></p>
+      </div>
+
+      <div class="modal-section">
+        <h4>📋 Eligibility Requirements</h4>
+        <ul id="modalEligibilityList"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>📄 Required Documents</h4>
+        <ul id="modalDocumentsList"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>📝 How to Apply</h4>
+        <p id="modalHowToApply" style="font-size: 0.95rem; color: #334155; line-height: 1.5;"></p>
+      </div>
+
+      <div class="modal-section" id="modalVerificationSection">
+        <h4>⚠️ Verification Note</h4>
+        <p id="modalVerificationNotes" style="font-size: 0.9rem; color: #b45309;"></p>
+      </div>
+
+      <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end;">
+        <a id="modalOfficialLink" href="#" target="_blank" class="btn-primary" style="text-decoration: none;">
+          🌐 Visit Official Portal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/results.js"></script>
+</body>
+</html>

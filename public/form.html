@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Details | AI Government Scheme Identifier</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" data-i18n="navHome">Home</a></li>
+      <li><a href="/form" class="active" data-i18n="navFind">Find Schemes</a></li>
+      <li><a href="/results" data-i18n="navResults">Results Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container">
+
+    <div class="form-card">
+      <div class="form-header">
+        <h2 data-i18n="formTitle">Enter Your Basic Profile Details</h2>
+        <p data-i18n="formSub">Fill out the profile fields below. Gemini AI will analyze your information to discover ALL eligible Central and State government schemes for you.</p>
+      </div>
+
+      <form id="schemeForm">
+        <div class="form-grid">
+
+          <!-- Section 1: Demographics & Location -->
+          <div class="form-section-title" data-i18n="sec1">👤 1. Personal & Location Information</div>
+
+          <div class="form-group">
+            <label for="age" data-i18n="labelAge">Age <span style="color: red;">*</span></label>
+            <input type="number" id="age" name="age" class="form-control" placeholder="e.g. 24" data-i18n="placeholderAge" min="1" max="110" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gender" data-i18n="labelGender">Gender <span style="color: red;">*</span></label>
+            <select id="gender" name="gender" class="form-control" required>
+              <option value="" data-i18n="selGender">Select Gender</option>
+              <option value="Male" data-i18n="optMale">Male</option>
+              <option value="Female" data-i18n="optFemale">Female</option>
+              <option value="Transgender" data-i18n="optTrans">Transgender</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="state" data-i18n="labelState">State / Union Territory <span style="color: red;">*</span></label>
+            <select id="state" name="state" class="form-control" required>
+              <option value="" data-i18n="selState">Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Other / UT">Other / UT</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="district" data-i18n="labelDistrict">District <span class="optional">(Optional)</span></label>
+            <input type="text" id="district" name="district" class="form-control" placeholder="e.g. Pune, Jaipur, Patna" data-i18n="placeholderDistrict">
+          </div>
+
+          <div class="form-group">
+            <label for="area" data-i18n="labelArea">Residential Area <span style="color: red;">*</span></label>
+            <select id="area" name="area" class="form-control" required>
+              <option value="" data-i18n="selArea">Select Area</option>
+              <option value="Rural" data-i18n="optRural">Rural</option>
+              <option value="Urban" data-i18n="optUrban">Urban</option>
+              <option value="Semi-Urban" data-i18n="optSemiUrban">Semi-Urban</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="maritalStatus" data-i18n="labelMaritalStatus">Marital Status</label>
+            <select id="maritalStatus" name="maritalStatus" class="form-control">
+              <option value="Single" data-i18n="optSingle">Single / Unmarried</option>
+              <option value="Married" data-i18n="optMarried">Married</option>
+              <option value="Widowed" data-i18n="optWidowed">Widowed</option>
+              <option value="Divorced/Separated" data-i18n="optDivorced">Divorced / Separated</option>
+            </select>
+          </div>
+
+          <!-- Section 2: Education & Occupation -->
+          <div class="form-section-title" data-i18n="sec2">💼 2. Occupation & Socio-Economic Profile</div>
+
+          <div class="form-group">
+            <label for="occupation" data-i18n="labelOccupation">Occupation <span style="color: red;">*</span></label>
+            <select id="occupation" name="occupation" class="form-control" required>
+              <option value="" data-i18n="selOccupation">Select Occupation</option>
+              <option value="Student" data-i18n="optStudent">Student</option>
+              <option value="Farmer / Agriculture" data-i18n="optFarmer">Farmer / Agriculture</option>
+              <option value="Self-Employed / Business / Artisan" data-i18n="optSelfEmp">Self-Employed / Business / Artisan</option>
+              <option value="Daily Wage / Informal Worker" data-i18n="optDailyWage">Daily Wage / Informal Worker</option>
+              <option value="Private Sector Employee" data-i18n="optPrivate">Private Sector Employee</option>
+              <option value="Government Employee" data-i18n="optGovt">Government Employee</option>
+              <option value="Unemployed" data-i18n="optUnemp">Unemployed</option>
+              <option value="Homemaker" data-i18n="optHomemaker">Homemaker</option>
+              <option value="Retired / Senior Citizen" data-i18n="optRetired">Retired / Senior Citizen</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="education" data-i18n="labelEducation">Highest Education Level</label>
+            <select id="education" name="education" class="form-control">
+              <option value="Below 10th" data-i18n="optBelow10">Below 10th Standard</option>
+              <option value="10th Pass (SSLC)" data-i18n="opt10Pass">10th Pass</option>
+              <option value="12th Pass (HSC)" data-i18n="opt12Pass">12th Pass / Higher Secondary</option>
+              <option value="Diploma / ITI" data-i18n="optDiploma">Diploma / ITI</option>
+              <option value="Graduate (Undergraduate)" data-i18n="optGrad">Graduate (Undergraduate)</option>
+              <option value="Post Graduate & Above" data-i18n="optPostGrad">Post Graduate & Above</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="income" data-i18n="labelIncome">Annual Family Income <span style="color: red;">*</span></label>
+            <select id="income" name="income" class="form-control" required>
+              <option value="" data-i18n="selIncome">Select Income Band</option>
+              <option value="Below ₹1 Lakh" data-i18n="optBelow1L">Below ₹1,00,000</option>
+              <option value="₹1 Lakh - ₹2.5 Lakhs" data-i18n="opt1to25L">₹1,00,000 - ₹2,50,000</option>
+              <option value="₹2.5 Lakhs - ₹5 Lakhs" data-i18n="opt25to5L">₹2,50,000 - ₹5,00,000</option>
+              <option value="₹5 Lakhs - ₹8 Lakhs" data-i18n="opt5to8L">₹5,00,000 - ₹8,00,000</option>
+              <option value="Above ₹8 Lakhs" data-i18n="optAbove8L">Above ₹8,00,000</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="socialCategory" data-i18n="labelSocialCategory">Social Category <span style="color: red;">*</span></label>
+            <select id="socialCategory" name="socialCategory" class="form-control" required>
+              <option value="" data-i18n="selCategory">Select Social Category</option>
+              <option value="General" data-i18n="optGen">General</option>
+              <option value="OBC" data-i18n="optOBC">OBC (Other Backward Classes)</option>
+              <option value="SC" data-i18n="optSC">SC (Scheduled Caste)</option>
+              <option value="ST" data-i18n="optST">ST (Scheduled Tribe)</option>
+              <option value="EWS" data-i18n="optEWS">EWS (Economically Weaker Section)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="employmentStatus" data-i18n="labelEmploymentStatus">Employment Status</label>
+            <select id="employmentStatus" name="employmentStatus" class="form-control">
+              <option value="Employed" data-i18n="optPrivate">Employed</option>
+              <option value="Unemployed" data-i18n="optUnemp">Unemployed</option>
+              <option value="Self-Employed" data-i18n="optSelfEmp">Self-Employed</option>
+              <option value="Student" data-i18n="optStudent">Student</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="familySize" data-i18n="labelFamilySize">Family Size (Members)</label>
+            <input type="number" id="familySize" name="familySize" class="form-control" placeholder="e.g. 4" data-i18n="placeholderFamilySize" min="1" max="20">
+          </div>
+
+          <!-- Section 3: Status Checkboxes / Dropdowns -->
+          <div class="form-section-title" data-i18n="sec3">📋 3. Specific Status Checks</div>
+
+          <div class="form-group">
+            <label for="isBpl" data-i18n="labelIsBpl">Below Poverty Line (BPL) Card Holder?</label>
+            <select id="isBpl" name="isBpl" class="form-control">
+              <option value="No" data-i18n="optNoBpl">No / Not Sure</option>
+              <option value="Yes" data-i18n="optYesBpl">Yes (Has BPL / Ration Card)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="isStudent" data-i18n="labelIsStudent">Currently Enrolled as Student?</label>
+            <select id="isStudent" name="isStudent" class="form-control">
+              <option value="No" data-i18n="optNo">No</option>
+              <option value="Yes" data-i18n="optYes">Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="isFarmer" data-i18n="labelIsFarmer">Farmer / Agricultural Landowner?</label>
+            <select id="isFarmer" name="isFarmer" class="form-control">
+              <option value="No" data-i18n="optNo">No</option>
+              <option value="Yes" data-i18n="optYes">Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="disabilityStatus" data-i18n="labelDisabilityStatus">Person with Disability (PwD)?</label>
+            <select id="disabilityStatus" name="disabilityStatus" class="form-control">
+              <option value="No" data-i18n="optNo">No</option>
+              <option value="Yes (40% or more)" data-i18n="optPwd40">Yes (40% or more disability)</option>
+              <option value="Yes (Below 40%)" data-i18n="optPwdLess40">Yes (Less than 40% disability)</option>
+            </select>
+          </div>
+
+          <!-- Section 4: Specific Purpose -->
+          <div class="form-section-title" data-i18n="sec4">🎯 4. Specific Purpose & Additional Details</div>
+
+          <div class="form-group full-width">
+            <label for="specificNeed" data-i18n="labelSpecificNeed">Primary Purpose / Need <span class="optional">(Optional)</span></label>
+            <select id="specificNeed" name="specificNeed" class="form-control">
+              <option value="General Welfare & All Matching Schemes" data-i18n="purpGeneral">General Welfare & All Matching Schemes</option>
+              <option value="Higher Education & Scholarships" data-i18n="purpEdu">Higher Education & Scholarships</option>
+              <option value="Business Loan / Startup Funding / MSME" data-i18n="purpBiz">Business Loan / Startup Funding / MSME</option>
+              <option value="Farming Equipment & Agriculture Subsidy" data-i18n="purpAgri">Farming Equipment & Agriculture Subsidy</option>
+              <option value="Healthcare & Medical Insurance" data-i18n="purpHealth">Healthcare & Medical Insurance</option>
+              <option value="Housing & Home Construction Assistance" data-i18n="purpHousing">Housing & Home Construction Assistance</option>
+              <option value="Pension & Senior Citizen Support" data-i18n="purpPension">Pension & Senior Citizen Support</option>
+              <option value="Skill Training & Employment Opportunity" data-i18n="purpSkill">Skill Training & Employment Opportunity</option>
+              <option value="Women Empowerment & Maternity Support" data-i18n="purpWomen">Women Empowerment & Maternity Support</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="details" data-i18n="labelDetails">Additional Notes / Other Details <span class="optional">(Optional)</span></label>
+            <textarea id="details" name="details" class="form-control" rows="3" placeholder="Enter any extra details" data-i18n="placeholderDetails"></textarea>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <button type="submit" id="submitBtn" class="btn-primary" data-i18n="submitFormBtn" style="width: 100%; max-width: 400px; justify-content: center;">
+            🚀 Discover All Schemes with Gemini AI
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Processing / Loading UI -->
+    <div id="loadingBox" class="loading-overlay" style="display: none;">
+      <div class="spinner"></div>
+      <h3 data-i18n="analyzingTitle">Analyzing Your Profile with Gemini AI...</h3>
+      <p data-i18n="analyzingSub" style="color: var(--text-muted); margin-top: 0.5rem;">
+        Exhaustively matching your profile against Central and State welfare databases. Please wait a moment.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/form.js"></script>
+</body>
+</html>
