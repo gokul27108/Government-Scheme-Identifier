@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AI Government Scheme Identifier - Modern UI Design System
+   AI Government Scheme Identifier - Complete UI & Features Design System
    ========================================================================== */
 
 :root {
@@ -85,8 +85,9 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
@@ -272,12 +273,6 @@ body {
   color: #334155;
 }
 
-.form-group label span.optional {
-  font-weight: 400;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-}
-
 .form-control {
   padding: 0.75rem 1rem;
   border: 1px solid #cbd5e1;
@@ -294,7 +289,6 @@ body {
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }
 
-/* Section Header in Form */
 .form-section-title {
   grid-column: 1 / -1;
   font-size: 1.15rem;
@@ -305,7 +299,7 @@ body {
   border-bottom: 2px solid #e2e8f0;
 }
 
-/* Metric Stats Row */
+/* Stats */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -365,7 +359,7 @@ body {
   gap: 0.75rem;
 }
 
-/* Filters & Search Toolbar */
+/* Toolbar */
 .toolbar {
   background: var(--surface-color);
   border-radius: var(--radius-md);
@@ -418,7 +412,7 @@ body {
   cursor: pointer;
 }
 
-/* Scheme Cards Grid */
+/* Scheme Cards */
 .schemes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -533,13 +527,10 @@ body {
   background-color: #cbd5e1;
 }
 
-/* Modal */
+/* Modals */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(4px);
   display: flex;
@@ -575,8 +566,7 @@ body {
   right: 1.25rem;
   background: #f1f5f9;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   font-size: 1.2rem;
   cursor: pointer;
@@ -584,11 +574,6 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-}
-
-.modal-close:hover {
-  background: #e2e8f0;
-  color: var(--text-main);
 }
 
 .modal-section {
@@ -603,41 +588,178 @@ body {
   padding-bottom: 0.25rem;
 }
 
-.modal-section ul {
-  padding-left: 1.25rem;
+/* Comparison Table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
 }
 
-.modal-section ul li {
-  margin-bottom: 0.35rem;
-  font-size: 0.9rem;
-  color: #334155;
+.compare-table th, .compare-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  font-size: 0.88rem;
+  vertical-align: top;
+  text-align: left;
 }
 
-/* Loading Overlay */
-.loading-overlay {
-  text-align: center;
-  padding: 4rem 2rem;
+.compare-table th {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* Floating AI Chatbot Assistant (Feature 1) */
+#aiChatContainer {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+}
+
+#aiChatToggleBtn {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  border: none;
+  padding: 0.8rem 1.25rem;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+#aiChatToggleBtn:hover {
+  transform: scale(1.05);
+}
+
+.chat-drawer {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 380px;
+  height: 520px;
   background: var(--surface-color);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  margin-bottom: 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #e2e8f0;
-  border-top-color: var(--primary-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1.5rem auto;
+.chat-drawer.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.chat-header {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.85rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Footer */
+.chat-close-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #f8fafc;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.chat-msg.bot {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.chat-msg.user {
+  background: #2563eb;
+  color: #ffffff;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-input-area {
+  padding: 0.75rem;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.chat-input-area button {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Printable PDF Export Media Queries (Feature 15) */
+@media print {
+  .navbar, footer, .toolbar, #aiChatContainer, .btn-detail, .btn-bookmark, .compare-chk, .modal-close {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .scheme-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #cccccc;
+    margin-bottom: 1rem;
+  }
+}
+
 footer {
   background-color: #0f172a;
   color: #94a3b8;
@@ -647,14 +769,8 @@ footer {
   margin-top: auto;
 }
 
-footer a {
-  color: #38bdf8;
-  text-decoration: none;
-}
-
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
-  .hero p { font-size: 1rem; }
   .toolbar { flex-direction: column; align-items: stretch; }
-  .search-box { min-width: 100%; }
+  .chat-drawer { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
 }

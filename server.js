@@ -1,11 +1,12 @@
 require('dotenv').config();
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // Handles local Windows SSL certificate chain
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
 const apiRoutes = require('./routes/apiRoutes');
 const authRoutes = require('./routes/authRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api', chatRoutes);
 app.use('/api', apiRoutes);
 
 // View Routes
@@ -36,6 +38,10 @@ app.get('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
 });
 
 app.get('/form', (req, res) => {
@@ -55,7 +61,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`🔗 AI Scheme Finder Home: http://localhost:${PORT}/`);
-  console.log(`🔐 Login: http://localhost:${PORT}/login`);
-  console.log(`📝 Register: http://localhost:${PORT}/register`);
-  console.log(`📋 Form: http://localhost:${PORT}/form`);
+  console.log(`💬 AI Chatbot API: http://localhost:${PORT}/api/chat`);
 });

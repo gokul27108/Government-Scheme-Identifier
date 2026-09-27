@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile & Saved Schemes | AI Government Scheme Identifier</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" data-i18n="navHome">Home</a></li>
+      <li><a href="/form" data-i18n="navFind">Find Schemes</a></li>
+      <li><a href="/results" data-i18n="navResults">Results Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      
+      <!-- User Profile Card -->
+      <div class="form-card">
+        <div class="form-header">
+          <h2>👤 User Profile</h2>
+          <p id="userEmailLabel">Manage your demographic default settings</p>
+        </div>
+
+        <form id="profileUpdateForm">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="profName">Full Name</label>
+            <input type="text" id="profName" class="form-control" readonly>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="profState">Resident State</label>
+            <input type="text" id="profState" name="state" class="form-control" placeholder="e.g. Tamil Nadu, Maharashtra">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="profOccupation">Occupation</label>
+            <input type="text" id="profOccupation" name="occupation" class="form-control" placeholder="e.g. Student, Farmer">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label for="profIncome">Annual Family Income</label>
+            <input type="text" id="profIncome" name="income" class="form-control" placeholder="e.g. Below ₹1 Lakh">
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+            💾 Save Profile Settings
+          </button>
+        </form>
+      </div>
+
+      <!-- Bookmarked Schemes List -->
+      <div class="form-card">
+        <div class="form-header">
+          <h2>⭐ Bookmarked Schemes</h2>
+          <p>Your saved schemes for quick reference and application</p>
+        </div>
+
+        <div id="bookmarksContainer">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/chat.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!Auth.isLoggedIn()) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const user = Auth.getUser();
+      if (user) {
+        document.getElementById('profName').value = user.fullName || '';
+        document.getElementById('userEmailLabel').textContent = user.email || '';
+        if (user.profile) {
+          document.getElementById('profState').value = user.profile.state || '';
+          document.getElementById('profOccupation').value = user.profile.occupation || '';
+          document.getElementById('profIncome').value = user.profile.income || '';
+        }
+      }
+
+      // Load bookmarks
+      renderBookmarks();
+
+      // Profile Update Form
+      document.getElementById('profileUpdateForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const state = document.getElementById('profState').value;
+        const occupation = document.getElementById('profOccupation').value;
+        const income = document.getElementById('profIncome').value;
+
+        try {
+          const res = await fetch('/api/auth/profile', {
+            method: 'PUT',
+            headers: Auth.getHeaders(),
+            body: JSON.stringify({ state, occupation, income })
+          });
+          const data = await res.json();
+          if (data.success) {
+            alert('Profile updated successfully!');
+            user.profile = data.user.profile;
+            localStorage.setItem('user', JSON.stringify(user));
+          }
+        } catch (err) {
+          alert('Error updating profile.');
+        }
+      });
+    });
+
+    function renderBookmarks() {
+      const container = document.getElementById('bookmarksContainer');
+      const list = BookmarksManager.getLocalBookmarks();
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+            No bookmarked schemes yet. Click the ⭐ Save button on any scheme card to add it here!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(b => `
+        <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #0f172a; display: block;">${b.schemeName}</strong>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">${b.ministry || 'Government of India'}</span>
+          </div>
+          <a href="${b.officialWebsite || '#'}" target="_blank" class="btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; text-decoration: none;">
+            Apply 🔗
+          </a>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

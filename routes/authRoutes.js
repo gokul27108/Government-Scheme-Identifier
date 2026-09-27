@@ -9,7 +9,6 @@ const { requireAuth } = require('../middleware/authMiddleware');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'ai_gov_schemes_secret_key_2026';
 
-// Memory cache fallback for users when MongoDB is disconnected
 const memoryUsers = [];
 
 /**
@@ -42,7 +41,8 @@ router.post('/register', async (req, res) => {
         fullName,
         email: email.toLowerCase(),
         password: passwordHash,
-        profile: profile || {}
+        profile: profile || {},
+        bookmarks: []
       });
     } else {
       const existing = memoryUsers.find(u => u.email === email.toLowerCase());
@@ -56,12 +56,12 @@ router.post('/register', async (req, res) => {
         email: email.toLowerCase(),
         password: passwordHash,
         profile: profile || {},
+        bookmarks: [],
         createdAt: new Date()
       };
       memoryUsers.push(newUser);
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: newUser._id, fullName: newUser.fullName, email: newUser.email },
       JWT_SECRET,
@@ -76,7 +76,8 @@ router.post('/register', async (req, res) => {
         id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
-        profile: newUser.profile
+        profile: newUser.profile,
+        bookmarks: newUser.bookmarks || []
       }
     });
 
@@ -98,7 +99,6 @@ router.post('/login', async (req, res) => {
     }
 
     let user = null;
-
     if (getDBStatus()) {
       user = await User.findOne({ email: email.toLowerCase() });
     } else {
@@ -128,7 +128,8 @@ router.post('/login', async (req, res) => {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
-        profile: user.profile
+        profile: user.profile || {},
+        bookmarks: user.bookmarks || []
       }
     });
 
@@ -167,10 +168,106 @@ router.get('/me', requireAuth, async (req, res) => {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
-        profile: user.profile
+        profile: user.profile || {},
+        bookmarks: user.bookmarks || []
       },
       savedSearches
     });
+
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * PUT /api/auth/profile
+ * Update user demographic profile defaults
+ */
+router.put('/profile', requireAuth, async (req, res) => {
+  try {
+    const updatedProfile = req.body || {};
+
+    if (getDBStatus()) {
+      const user = await User.findByIdAndUpdate(
+        req.user.id,
+        { profile: updatedProfile },
+        { new: true }
+      ).select('-password');
+
+      return res.json({ success: true, message: 'Profile updated successfully!', user });
+    }
+
+    const user = memoryUsers.find(u => String(u._id) === String(req.user.id));
+    if (user) {
+      user.profile = updatedProfile;
+      return res.json({ success: true, message: 'Profile updated successfully!', user });
+    }
+
+    return res.status(404).json({ success: false, error: 'User not found.' });
+
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * POST /api/auth/bookmarks
+ * Toggle bookmark for a scheme
+ */
+router.post('/bookmarks', requireAuth, async (req, res) => {
+  try {
+    const scheme = req.body;
+    if (!scheme || !scheme.schemeName) {
+      return res.status(400).json({ success: false, error: 'Scheme data required for bookmarking.' });
+    }
+
+    if (getDBStatus()) {
+      const user = await User.findById(req.user.id);
+      if (!user) return res.status(404).json({ success: false, error: 'User not found.' });
+
+      const idx = user.bookmarks.findIndex(b => b.schemeName === scheme.schemeName);
+      let isBookmarked = false;
+
+      if (idx > -1) {
+        user.bookmarks.splice(idx, 1);
+      } else {
+        user.bookmarks.push({
+          schemeName: scheme.schemeName,
+          ministry: scheme.ministry || '',
+          category: scheme.category || '',
+          level: scheme.level || '',
+          officialWebsite: scheme.officialWebsite || ''
+        });
+        isBookmarked = true;
+      }
+
+      await user.save();
+      return res.json({ success: true, isBookmarked, bookmarks: user.bookmarks });
+    }
+
+    const user = memoryUsers.find(u => String(u._id) === String(req.user.id));
+    if (user) {
+      if (!user.bookmarks) user.bookmarks = [];
+      const idx = user.bookmarks.findIndex(b => b.schemeName === scheme.schemeName);
+      let isBookmarked = false;
+
+      if (idx > -1) {
+        user.bookmarks.splice(idx, 1);
+      } else {
+        user.bookmarks.push({
+          schemeName: scheme.schemeName,
+          ministry: scheme.ministry || '',
+          category: scheme.category || '',
+          level: scheme.level || '',
+          officialWebsite: scheme.officialWebsite || ''
+        });
+        isBookmarked = true;
+      }
+
+      return res.json({ success: true, isBookmarked, bookmarks: user.bookmarks });
+    }
+
+    return res.status(404).json({ success: false, error: 'User not found.' });
 
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });

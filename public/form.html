@@ -11,7 +11,7 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <a href="/" class="nav-brand">
-      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+      🇮🇳 Gov Scheme Identifier
     </a>
     <ul class="nav-links">
       <li><a href="/" data-i18n="navHome">Home</a></li>
@@ -106,6 +106,7 @@
           <div class="form-group">
             <label for="maritalStatus" data-i18n="labelMaritalStatus">Marital Status</label>
             <select id="maritalStatus" name="maritalStatus" class="form-control">
+              <option value="" data-i18n="selMarital">Select Marital Status</option>
               <option value="Single" data-i18n="optSingle">Single / Unmarried</option>
               <option value="Married" data-i18n="optMarried">Married</option>
               <option value="Widowed" data-i18n="optWidowed">Widowed</option>
@@ -135,6 +136,7 @@
           <div class="form-group">
             <label for="education" data-i18n="labelEducation">Highest Education Level</label>
             <select id="education" name="education" class="form-control">
+              <option value="" data-i18n="selEducation">Select Education Level</option>
               <option value="Below 10th" data-i18n="optBelow10">Below 10th Standard</option>
               <option value="10th Pass (SSLC)" data-i18n="opt10Pass">10th Pass</option>
               <option value="12th Pass (HSC)" data-i18n="opt12Pass">12th Pass / Higher Secondary</option>
@@ -171,6 +173,7 @@
           <div class="form-group">
             <label for="employmentStatus" data-i18n="labelEmploymentStatus">Employment Status</label>
             <select id="employmentStatus" name="employmentStatus" class="form-control">
+              <option value="" data-i18n="selEmployment">Select Employment Status</option>
               <option value="Employed" data-i18n="optPrivate">Employed</option>
               <option value="Unemployed" data-i18n="optUnemp">Unemployed</option>
               <option value="Self-Employed" data-i18n="optSelfEmp">Self-Employed</option>
@@ -189,6 +192,7 @@
           <div class="form-group">
             <label for="isBpl" data-i18n="labelIsBpl">Below Poverty Line (BPL) Card Holder?</label>
             <select id="isBpl" name="isBpl" class="form-control">
+              <option value="" data-i18n="selBpl">Select BPL Status</option>
               <option value="No" data-i18n="optNoBpl">No / Not Sure</option>
               <option value="Yes" data-i18n="optYesBpl">Yes (Has BPL / Ration Card)</option>
             </select>
@@ -197,6 +201,7 @@
           <div class="form-group">
             <label for="isStudent" data-i18n="labelIsStudent">Currently Enrolled as Student?</label>
             <select id="isStudent" name="isStudent" class="form-control">
+              <option value="" data-i18n="selStudent">Select Student Status</option>
               <option value="No" data-i18n="optNo">No</option>
               <option value="Yes" data-i18n="optYes">Yes</option>
             </select>
@@ -205,6 +210,7 @@
           <div class="form-group">
             <label for="isFarmer" data-i18n="labelIsFarmer">Farmer / Agricultural Landowner?</label>
             <select id="isFarmer" name="isFarmer" class="form-control">
+              <option value="" data-i18n="selFarmer">Select Farmer Status</option>
               <option value="No" data-i18n="optNo">No</option>
               <option value="Yes" data-i18n="optYes">Yes</option>
             </select>
@@ -213,6 +219,7 @@
           <div class="form-group">
             <label for="disabilityStatus" data-i18n="labelDisabilityStatus">Person with Disability (PwD)?</label>
             <select id="disabilityStatus" name="disabilityStatus" class="form-control">
+              <option value="" data-i18n="selDisability">Select PwD Status</option>
               <option value="No" data-i18n="optNo">No</option>
               <option value="Yes (40% or more)" data-i18n="optPwd40">Yes (40% or more disability)</option>
               <option value="Yes (Below 40%)" data-i18n="optPwdLess40">Yes (Less than 40% disability)</option>
@@ -225,6 +232,7 @@
           <div class="form-group full-width">
             <label for="specificNeed" data-i18n="labelSpecificNeed">Primary Purpose / Need <span class="optional">(Optional)</span></label>
             <select id="specificNeed" name="specificNeed" class="form-control">
+              <option value="" data-i18n="selPurpose">Select Primary Purpose</option>
               <option value="General Welfare & All Matching Schemes" data-i18n="purpGeneral">General Welfare & All Matching Schemes</option>
               <option value="Higher Education & Scholarships" data-i18n="purpEdu">Higher Education & Scholarships</option>
               <option value="Business Loan / Startup Funding / MSME" data-i18n="purpBiz">Business Loan / Startup Funding / MSME</option>
@@ -270,6 +278,8 @@
 
   <script src="/js/i18n.js"></script>
   <script src="/js/auth.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/chat.js"></script>
   <script src="/js/form.js"></script>
 </body>
 </html>

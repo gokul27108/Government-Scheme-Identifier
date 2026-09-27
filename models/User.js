@@ -1,5 +1,14 @@
 const mongoose = require('mongoose');
 
+const BookmarkSchema = new mongoose.Schema({
+  schemeName: { type: String, required: true },
+  ministry: { type: String },
+  category: { type: String },
+  level: { type: String },
+  officialWebsite: { type: String },
+  savedAt: { type: Date, default: Date.now }
+});
+
 const UserSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
@@ -22,6 +31,7 @@ const UserSchema = new mongoose.Schema({
     maritalStatus: { type: String, default: 'Single' },
     isBpl: { type: String, default: 'No' }
   },
+  bookmarks: [BookmarkSchema],
   createdAt: { type: Date, default: Date.now }
 });
 

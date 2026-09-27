@@ -5,18 +5,16 @@ const SchemeAnalysis = require('../models/SchemeAnalysis');
 const { getDBStatus } = require('../config/db');
 const { optionalAuth } = require('../middleware/authMiddleware');
 
-// In-memory fallback cache when MongoDB is disconnected
 const memoryCache = [];
 
 /**
  * POST /api/schemes/analyze
- * Analyzes user personal details using Gemini API and identifies all matching schemes
+ * Analyzes user profile using Gemini AI engine
  */
 router.post('/schemes/analyze', optionalAuth, async (req, res) => {
   try {
     const profileData = req.body || {};
     
-    // Basic validation
     if (!profileData.age && !profileData.state && !profileData.occupation) {
       return res.status(400).json({
         success: false,
@@ -24,9 +22,7 @@ router.post('/schemes/analyze', optionalAuth, async (req, res) => {
       });
     }
 
-    // Call Gemini AI service
     const analysisResult = await analyzeUserProfile(profileData);
-
     const userId = req.user ? req.user.id : null;
 
     const fullRecord = {
@@ -39,7 +35,6 @@ router.post('/schemes/analyze', optionalAuth, async (req, res) => {
 
     let savedId = null;
 
-    // Save to MongoDB if connected
     if (getDBStatus()) {
       try {
         const savedDoc = await SchemeAnalysis.create(fullRecord);
@@ -49,9 +44,8 @@ router.post('/schemes/analyze', optionalAuth, async (req, res) => {
       }
     }
 
-    // Also push to memory cache
     memoryCache.unshift({ ...fullRecord, _id: savedId || `mem-${Date.now()}` });
-    if (memoryCache.length > 20) memoryCache.pop(); // Keep top 20 recent
+    if (memoryCache.length > 30) memoryCache.pop();
 
     return res.status(200).json({
       success: true,
@@ -75,7 +69,6 @@ router.post('/schemes/analyze', optionalAuth, async (req, res) => {
 
 /**
  * GET /api/schemes/history
- * Get recent analysis history
  */
 router.get('/schemes/history', optionalAuth, async (req, res) => {
   try {
@@ -102,7 +95,6 @@ router.get('/schemes/history', optionalAuth, async (req, res) => {
 
 /**
  * GET /api/schemes/history/:id
- * Get specific analysis record by ID
  */
 router.get('/schemes/history/:id', async (req, res) => {
   try {
@@ -117,6 +109,61 @@ router.get('/schemes/history/:id', async (req, res) => {
     if (cached) return res.json({ success: true, data: cached });
 
     return res.status(404).json({ success: false, error: 'Scheme analysis record not found.' });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * GET /api/analytics
+ * Returns search platform metrics & category distribution
+ */
+router.get('/analytics', async (req, res) => {
+  try {
+    let totalSearches = 0;
+    let categoryStats = {};
+    let stateStats = {};
+
+    if (getDBStatus()) {
+      totalSearches = await SchemeAnalysis.countDocuments();
+      const records = await SchemeAnalysis.find().limit(50);
+      
+      records.forEach(r => {
+        const st = (r.profile && r.profile.state) || 'Unknown';
+        stateStats[st] = (stateStats[st] || 0) + 1;
+
+        if (r.schemes) {
+          r.schemes.forEach(s => {
+            const cat = s.category || 'General Welfare';
+            categoryStats[cat] = (categoryStats[cat] || 0) + 1;
+          });
+        }
+      });
+    } else {
+      totalSearches = memoryCache.length;
+      memoryCache.forEach(r => {
+        const st = (r.profile && r.profile.state) || 'Unknown';
+        stateStats[st] = (stateStats[st] || 0) + 1;
+
+        if (r.schemes) {
+          r.schemes.forEach(s => {
+            const cat = s.category || 'General Welfare';
+            categoryStats[cat] = (categoryStats[cat] || 0) + 1;
+          });
+        }
+      });
+    }
+
+    return res.json({
+      success: true,
+      analytics: {
+        totalSearches,
+        activeSchemesCount: 250,
+        categoryStats,
+        stateStats
+      }
+    });
+
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }

@@ -5,20 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!schemeForm) return;
 
-  // Pre-fill profile fields if user is logged in
-  if (window.Auth && Auth.isLoggedIn()) {
-    const user = Auth.getUser();
-    if (user && user.profile) {
-      const p = user.profile;
-      if (p.age) document.getElementById('age').value = p.age;
-      if (p.gender) document.getElementById('gender').value = p.gender;
-      if (p.state) document.getElementById('state').value = p.state;
-      if (p.occupation) document.getElementById('occupation').value = p.occupation;
-      if (p.education) document.getElementById('education').value = p.education;
-      if (p.income) document.getElementById('income').value = p.income;
-      if (p.socialCategory) document.getElementById('socialCategory').value = p.socialCategory;
-    }
-  }
+  // Keep form fields clean on load
+  schemeForm.reset();
 
   schemeForm.addEventListener('submit', async (e) => {
     e.preventDefault();

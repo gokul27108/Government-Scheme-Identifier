@@ -397,15 +397,16 @@ function translateSelectOptions(dict) {
   }
 
   const maritalSel = document.getElementById('maritalStatus');
-  if (maritalSel && maritalSel.options.length >= 4) {
-    if (dict.optSingle) maritalSel.options[0].text = dict.optSingle;
-    if (dict.optMarried) maritalSel.options[1].text = dict.optMarried;
-    if (dict.optWidowed) maritalSel.options[2].text = dict.optWidowed;
-    if (dict.optDivorced) maritalSel.options[3].text = dict.optDivorced;
+  if (maritalSel && maritalSel.options.length >= 5) {
+    if (dict.selMarital) maritalSel.options[0].text = dict.selMarital;
+    if (dict.optSingle) maritalSel.options[1].text = dict.optSingle;
+    if (dict.optMarried) maritalSel.options[2].text = dict.optMarried;
+    if (dict.optWidowed) maritalSel.options[3].text = dict.optWidowed;
+    if (dict.optDivorced) maritalSel.options[4].text = dict.optDivorced;
   }
 
   const occSel = document.getElementById('occupation');
-  if (occSel && occSel.options.length >= 9) {
+  if (occSel && occSel.options.length >= 10) {
     if (dict.selOccupation) occSel.options[0].text = dict.selOccupation;
     if (dict.optStudent) occSel.options[1].text = dict.optStudent;
     if (dict.optFarmer) occSel.options[2].text = dict.optFarmer;
@@ -418,13 +419,14 @@ function translateSelectOptions(dict) {
   }
 
   const eduSel = document.getElementById('education');
-  if (eduSel && eduSel.options.length >= 6) {
-    if (dict.optBelow10) eduSel.options[0].text = dict.optBelow10;
-    if (dict.opt10Pass) eduSel.options[1].text = dict.opt10Pass;
-    if (dict.opt12Pass) eduSel.options[2].text = dict.opt12Pass;
-    if (dict.optDiploma) eduSel.options[3].text = dict.optDiploma;
-    if (dict.optGrad) eduSel.options[4].text = dict.optGrad;
-    if (dict.optPostGrad) eduSel.options[5].text = dict.optPostGrad;
+  if (eduSel && eduSel.options.length >= 7) {
+    if (dict.selEducation) eduSel.options[0].text = dict.selEducation;
+    if (dict.optBelow10) eduSel.options[1].text = dict.optBelow10;
+    if (dict.opt10Pass) eduSel.options[2].text = dict.opt10Pass;
+    if (dict.opt12Pass) eduSel.options[3].text = dict.opt12Pass;
+    if (dict.optDiploma) eduSel.options[4].text = dict.optDiploma;
+    if (dict.optGrad) eduSel.options[5].text = dict.optGrad;
+    if (dict.optPostGrad) eduSel.options[6].text = dict.optPostGrad;
   }
 
   const incSel = document.getElementById('income');
@@ -448,16 +450,17 @@ function translateSelectOptions(dict) {
   }
 
   const needSel = document.getElementById('specificNeed');
-  if (needSel && needSel.options.length >= 9) {
-    if (dict.purpGeneral) needSel.options[0].text = dict.purpGeneral;
-    if (dict.purpEdu) needSel.options[1].text = dict.purpEdu;
-    if (dict.purpBiz) needSel.options[2].text = dict.purpBiz;
-    if (dict.purpAgri) needSel.options[3].text = dict.purpAgri;
-    if (dict.purpHealth) needSel.options[4].text = dict.purpHealth;
-    if (dict.purpHousing) needSel.options[5].text = dict.purpHousing;
-    if (dict.purpPension) needSel.options[6].text = dict.purpPension;
-    if (dict.purpSkill) needSel.options[7].text = dict.purpSkill;
-    if (dict.purpWomen) needSel.options[8].text = dict.purpWomen;
+  if (needSel && needSel.options.length >= 10) {
+    if (dict.selPurpose) needSel.options[0].text = dict.selPurpose;
+    if (dict.purpGeneral) needSel.options[1].text = dict.purpGeneral;
+    if (dict.purpEdu) needSel.options[2].text = dict.purpEdu;
+    if (dict.purpBiz) needSel.options[3].text = dict.purpBiz;
+    if (dict.purpAgri) needSel.options[4].text = dict.purpAgri;
+    if (dict.purpHealth) needSel.options[5].text = dict.purpHealth;
+    if (dict.purpHousing) needSel.options[6].text = dict.purpHousing;
+    if (dict.purpPension) needSel.options[7].text = dict.purpPension;
+    if (dict.purpSkill) needSel.options[8].text = dict.purpSkill;
+    if (dict.purpWomen) needSel.options[9].text = dict.purpWomen;
   }
 }
 

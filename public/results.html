@@ -11,12 +11,12 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <a href="/" class="nav-brand">
-      🇮🇳 AI Scheme Finder <span class="badge-ai">Gemini AI</span>
+      🇮🇳 Gov Scheme Identifier
     </a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/form">Find Schemes</a></li>
-      <li><a href="/results" class="active">Results Dashboard</a></li>
+      <li><a href="/" data-i18n="navHome">Home</a></li>
+      <li><a href="/form" data-i18n="navFind">Find Schemes</a></li>
+      <li><a href="/results" class="active" data-i18n="navResults">Results Dashboard</a></li>
     </ul>
   </nav>
 
@@ -29,28 +29,28 @@
         <div class="stat-icon total">🔍</div>
         <div class="stat-info">
           <h4 id="statTotal">0</h4>
-          <p>Total Schemes Found</p>
+          <p data-i18n="statTotal">Total Schemes Found</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon eligible">✅</div>
         <div class="stat-info">
           <h4 id="statEligible">0</h4>
-          <p>Eligible Schemes</p>
+          <p data-i18n="statEligible">Eligible Schemes</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon potential">⚡</div>
         <div class="stat-info">
           <h4 id="statPotential">0</h4>
-          <p>Potentially Eligible</p>
+          <p data-i18n="statPotential">Potentially Eligible</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon moreinfo">ℹ️</div>
         <div class="stat-info">
           <h4 id="statMoreInfo">0</h4>
-          <p>More Info Required</p>
+          <p data-i18n="statMoreInfo">More Info Required</p>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="disclaimer-banner">
       <span style="font-size: 1.25rem;">⚠️</span>
       <div>
-        <strong>Government Disclaimer:</strong> The Gemini AI Scheme Identifier provides recommendations for informational and assistance purposes. Final eligibility, documentation verification, and grant approval are determined solely by the respective Indian Central or State Government Authorities.
+        <strong data-i18n="disclaimerLabel">Government Disclaimer:</strong> <span data-i18n="disclaimerDesc">The Gemini AI Scheme Identifier provides recommendations for informational and assistance purposes. Final eligibility, documentation verification, and grant approval are determined solely by the respective Indian Central or State Government Authorities.</span>
       </div>
     </div>
 
@@ -67,33 +67,33 @@
     <div class="toolbar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search schemes by name, ministry, or keyword...">
+        <input type="text" id="searchInput" placeholder="Search schemes by name, ministry, or keyword..." data-i18n="searchPlaceholder">
       </div>
 
       <div class="filter-group">
         <select id="statusFilter" class="filter-select">
-          <option value="ALL">All Statuses</option>
-          <option value="Eligible">✅ Eligible Only</option>
-          <option value="Potentially Eligible">⚡ Potentially Eligible</option>
-          <option value="More Information Required">ℹ️ More Info Required</option>
+          <option value="ALL" data-i18n="optAllStatuses">All Statuses</option>
+          <option value="Eligible" data-i18n="optEligibleOnly">✅ Eligible Only</option>
+          <option value="Potentially Eligible" data-i18n="optPotentialOnly">⚡ Potentially Eligible</option>
+          <option value="More Information Required" data-i18n="optMoreInfoOnly">ℹ️ More Info Required</option>
         </select>
 
         <select id="categoryFilter" class="filter-select">
-          <option value="ALL">All Categories</option>
-          <option value="Agriculture">Agriculture & Farmers</option>
-          <option value="Education">Education & Scholarships</option>
-          <option value="Healthcare">Healthcare & Insurance</option>
-          <option value="Entrepreneurship">Entrepreneurship & MSME</option>
-          <option value="Housing">Housing</option>
-          <option value="Pension">Pension</option>
-          <option value="Women">Women & Child Development</option>
-          <option value="Skill Development">Skill Development</option>
-          <option value="Rural Development">Rural Development</option>
-          <option value="Social Welfare">Social Welfare</option>
+          <option value="ALL" data-i18n="optAllCategories">All Categories</option>
+          <option value="Agriculture" data-i18n="agriTitle">Agriculture & Farmers</option>
+          <option value="Education" data-i18n="eduTitle">Education & Scholarships</option>
+          <option value="Healthcare" data-i18n="healthTitle">Healthcare & Insurance</option>
+          <option value="Entrepreneurship" data-i18n="msmeTitle">Entrepreneurship & MSME</option>
+          <option value="Housing" data-i18n="housingTitle">Housing</option>
+          <option value="Pension" data-i18n="pensionTitle">Pension</option>
+          <option value="Women" data-i18n="purpWomen">Women & Child Development</option>
+          <option value="Skill Development" data-i18n="purpSkill">Skill Development</option>
+          <option value="Rural Development" data-i18n="housingTitle">Rural Development</option>
+          <option value="Social Welfare" data-i18n="purpGeneral">Social Welfare</option>
         </select>
 
         <select id="levelFilter" class="filter-select">
-          <option value="ALL">All Levels (Central & State)</option>
+          <option value="ALL" data-i18n="optAllLevels">All Levels (Central & State)</option>
           <option value="Central">Central Govt Schemes</option>
           <option value="State">State Govt Schemes</option>
         </select>
@@ -112,7 +112,7 @@
       <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
         Try clearing or adjusting your search filters, or submit a new profile analysis.
       </p>
-      <a href="/form" class="btn-primary">Fill Out Profile Form</a>
+      <a href="/form" class="btn-primary" data-i18n="navFind">Fill Out Profile Form</a>
     </div>
 
   </div>
@@ -132,37 +132,37 @@
       <p id="modalMinistry" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">Ministry Name</p>
 
       <div class="modal-section" style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
-        <h4>🎯 Why Relevant to You</h4>
+        <h4 data-i18n="whyRelevantHeader">🎯 Why Relevant to You</h4>
         <p id="modalRelevanceReason" style="font-size: 0.95rem; color: #334155;"></p>
       </div>
 
       <div class="modal-section">
-        <h4>💰 Key Benefits</h4>
+        <h4 data-i18n="benefitsHeader">💰 Key Benefits</h4>
         <p id="modalBenefits" style="font-size: 0.95rem; color: #1e293b; font-weight: 500;"></p>
       </div>
 
       <div class="modal-section">
-        <h4>📋 Eligibility Requirements</h4>
+        <h4 data-i18n="eligibilityHeader">📋 Eligibility Requirements</h4>
         <ul id="modalEligibilityList"></ul>
       </div>
 
       <div class="modal-section">
-        <h4>📄 Required Documents</h4>
+        <h4 data-i18n="requiredDocsHeader">📄 Required Documents</h4>
         <ul id="modalDocumentsList"></ul>
       </div>
 
       <div class="modal-section">
-        <h4>📝 How to Apply</h4>
+        <h4 data-i18n="howToApplyHeader">📝 How to Apply</h4>
         <p id="modalHowToApply" style="font-size: 0.95rem; color: #334155; line-height: 1.5;"></p>
       </div>
 
       <div class="modal-section" id="modalVerificationSection">
-        <h4>⚠️ Verification Note</h4>
+        <h4 data-i18n="verificationHeader">⚠️ Verification Note</h4>
         <p id="modalVerificationNotes" style="font-size: 0.9rem; color: #b45309;"></p>
       </div>
 
       <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end;">
-        <a id="modalOfficialLink" href="#" target="_blank" class="btn-primary" style="text-decoration: none;">
+        <a id="modalOfficialLink" href="#" target="_blank" class="btn-primary" style="text-decoration: none;" data-i18n="visitPortalBtn">
           🌐 Visit Official Portal
         </a>
       </div>
@@ -171,11 +171,15 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
+    <p data-i18n="footerText">© 2026 AI Government Scheme Identifier | Powered by Google Gemini API & Node.js</p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/auth.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/compare.js"></script>
+  <script src="/js/chat.js"></script>
   <script src="/js/results.js"></script>
 </body>
 </html>
